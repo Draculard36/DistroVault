@@ -1,0 +1,819 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>DistroVault Desktop v0.1 — Your Linux lab</title>
+  <link rel="icon" href="assets/DistroVault-icon-64.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/DistroVault-icon-256.png">
+  <style>
+    :root{--bg:#0c1018;--panel:#131a26;--panel2:#182131;--line:#293448;--text:#eef3fb;--muted:#98a6bb;--accent:#87bbff;--green:#70dbac;--yellow:#ffd58a;--purple:#c8acff;--red:#ff9a9a;--radius:17px;--shadow:0 14px 36px #05091155}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 77% -13%,#203350 0,transparent 39%),var(--bg);color:var(--text);font:15px/1.48 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:var(--accent)}:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+    .app{min-height:100vh;display:grid;grid-template-columns:252px minmax(0,1fr)}.sidebar{border-right:1px solid var(--line);background:#0e1520cc;padding:30px 18px;display:flex;flex-direction:column;gap:34px;position:sticky;top:0;height:100vh}.brand{display:flex;align-items:center;gap:12px;padding:0 11px}.mark{display:grid;place-items:center;width:43px;height:43px;color:#061323;font-weight:900;font-size:25px;border-radius:12px;background:linear-gradient(135deg,#a6dcff,#8bb5ff 52%,#c2adff)}.brand strong{font-size:22px;letter-spacing:-.8px}.brand small{display:block;color:var(--muted);font-size:11px;letter-spacing:.1em;text-transform:uppercase}.sidebar-label{color:#64748b;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:0 14px;margin-bottom:10px}.nav{display:flex;flex-direction:column;gap:7px}.nav button{display:flex;align-items:center;gap:11px;color:var(--muted);background:none;border:1px solid transparent;border-radius:11px;padding:12px 14px;text-align:left;font-weight:600}.nav button:hover{background:#ffffff0b;color:var(--text)}.nav button.active{color:var(--accent);background:#8abfff16;border-color:#82adff29}.nav .glyph{font-size:18px;width:23px;text-align:center}.side-foot{margin-top:auto;border:1px solid var(--line);border-radius:14px;padding:15px;background:#ffffff06;color:var(--muted);font-size:12px}.side-foot strong{display:block;color:var(--text);font-size:13px;margin-bottom:5px}.main{min-width:0;padding:35px clamp(18px,3.6vw,58px) 60px;max-width:1480px;width:100%;margin:auto}.top{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;margin-bottom:30px}.eyebrow{font-size:12px;letter-spacing:.14em;color:var(--accent);font-weight:800;text-transform:uppercase}.top h1{font-size:clamp(27px,3vw,39px);line-height:1.14;letter-spacing:-1.3px;margin:8px 0}.lead{color:var(--muted);margin:7px 0 0;max-width:660px}.top-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end}.btn{border-radius:11px;border:1px solid var(--line);padding:10px 15px;background:var(--panel2);color:var(--text);font-weight:700;white-space:nowrap}.btn:hover{filter:brightness(1.18)}.btn.primary{border-color:transparent;background:var(--accent);color:#071627}.btn.ghost{background:#ffffff06}.btn.small{font-size:12px;padding:8px 11px}.btn.danger{color:var(--red)}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin:25px 0 29px}.stat{min-height:122px;background:linear-gradient(160deg,#182338,#121a27);border:1px solid var(--line);border-radius:var(--radius);padding:20px}.stat .num{font-size:34px;font-weight:800;line-height:1.2;letter-spacing:-1.5px}.stat .label{font-size:13px;color:var(--muted);margin-top:9px}.stat .tiny{float:right;font-size:19px}.section-head{display:flex;justify-content:space-between;align-items:center;gap:15px;margin:30px 0 16px}.section-head h2{margin:0;font-size:20px;letter-spacing:-.4px}.section-head p{color:var(--muted);margin:3px 0 0;font-size:13px}.cols{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(290px,1fr);gap:23px;align-items:start}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.machine,.distro,.empty,.info,.setting{border:1px solid var(--line);background:#131c29d9;border-radius:var(--radius);padding:19px}.machine{display:flex;flex-direction:column;gap:13px;min-height:195px}.card-top{display:flex;justify-content:space-between;gap:11px;align-items:flex-start}.device-icon{height:41px;width:41px;display:grid;place-items:center;background:#87bbff15;border:1px solid #87bbff2c;border-radius:11px;font-size:21px}.machine h3,.distro h3{font-size:16px;line-height:1.3;letter-spacing:-.2px;margin:0}.sub{color:var(--muted);font-size:12px;margin:5px 0 0}.machine-os{display:flex;flex-wrap:wrap;gap:6px;margin:auto 0 0}.chip{font-size:11px;border-radius:100px;padding:5px 9px;color:var(--muted);background:#ffffff0d;border:1px solid #ffffff13;max-width:100%;overflow-wrap:anywhere}.chip.current{color:var(--green);background:#40ca8b14;border-color:#40ca8b35}.chip.testing{color:var(--yellow);background:#ffcb6b12;border-color:#ffcb6b30}.chip.wishlist{color:var(--purple);background:#a98aff16;border-color:#a98aff30}.chip.tried{color:var(--accent);background:#87bbff12;border-color:#87bbff30}.meta{font-size:12px;color:var(--muted);margin-top:9px}.card-actions{display:flex;align-items:center;flex-wrap:wrap;gap:8px}.linkbtn{color:var(--accent);background:none;border:0;padding:3px 0;font-size:12px;font-weight:700}.linkbtn.warn{color:var(--red)}.actions-right{margin-left:auto}.distro{display:flex;gap:13px;align-items:flex-start;margin-bottom:11px}.osicon{display:grid;place-items:center;flex:0 0 42px;height:42px;background:linear-gradient(140deg,#2e435e,#1a2539);border:1px solid #36465d;border-radius:11px;font-size:20px}.distromain{min-width:0;flex:1}.distro-title{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}.distro .card-actions{margin-top:10px}.note{color:var(--muted);font-size:12px;margin-top:8px;white-space:pre-line;overflow-wrap:anywhere}.compact .distro{padding:14px;margin-bottom:10px}.compact .osicon{flex-basis:36px;height:36px;font-size:17px}.compact .distro h3{font-size:14px}.toolbar{display:flex;flex-wrap:wrap;gap:10px;margin:19px 0}.field,.toolbar input,.toolbar select{background:#111925;border:1px solid var(--line);border-radius:10px;padding:11px 12px;color:var(--text);min-width:0}.toolbar input{flex:1;min-width:190px}.toolbar select{max-width:230px;flex:1}.field{width:100%}.field::placeholder,input::placeholder,textarea::placeholder{color:#697c93}.listing{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.listing .distro{margin:0;min-height:153px}.empty{text-align:center;padding:38px 23px;color:var(--muted)}.empty span{display:block;font-size:30px;margin-bottom:9px}.empty strong{color:var(--text);display:block}.empty p{font-size:13px;margin:8px auto 0;max-width:320px}.info{background:linear-gradient(145deg,#182b3d,#152033);padding:22px}.info h3{margin:0 0 10px}.info p{color:var(--muted);margin:0 0 14px;font-size:13px}.info .steps{margin:0;padding-left:20px;color:#c3cfe0;font-size:13px}.info li{margin:8px 0}.setting{margin:13px 0;display:flex;justify-content:space-between;align-items:center;gap:14px}.setting h3{font-size:15px;margin:0 0 3px}.setting p{font-size:13px;color:var(--muted);margin:0}.mobile-brand{display:none}.toast{position:fixed;right:24px;bottom:24px;background:#234434;border:1px solid #4b936c;color:#e8fff2;border-radius:12px;padding:12px 18px;box-shadow:var(--shadow);z-index:10;opacity:0;transform:translateY(12px);transition:.2s;pointer-events:none;max-width:310px}.toast.show{opacity:1;transform:translateY(0)}dialog{background:#151e2c;color:var(--text);border:1px solid #3a475a;border-radius:20px;width:min(94vw,550px);padding:0;box-shadow:0 30px 80px #000a}dialog::backdrop{background:#050911c5;backdrop-filter:blur(5px)}.dialog-head{padding:23px 25px 12px}.dialog-head h2{margin:0;font-size:23px}.dialog-head p{margin:5px 0 0;font-size:13px;color:var(--muted)}.dialog-body{padding:10px 25px 25px;display:grid;gap:14px}.form-field label{display:block;margin:0 0 6px;font-size:12px;font-weight:700;color:#c0cee0}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:13px}textarea.field{resize:vertical;min-height:75px}.dialog-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:10px}.footer{color:#6d809a;font-size:12px;margin-top:36px}.hidden{display:none!important}
+    @media(max-width:1150px){.cols{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:800px){.app{display:block}.sidebar{position:static;height:auto;padding:14px;border-right:none;border-bottom:1px solid var(--line);gap:12px}.sidebar .brand,.sidebar-label,.side-foot{display:none}.nav{flex-direction:row;overflow-x:auto}.nav button{white-space:nowrap;padding:10px 12px}.main{padding:23px 17px 45px}.mobile-brand{display:block;font-weight:800;color:var(--accent);margin:0 0 15px}.top{flex-wrap:wrap}.top-actions{justify-content:flex-start}.listing{grid-template-columns:1fr}}
+    @media(max-width:510px){.grid{grid-template-columns:1fr}.stats{gap:10px}.stat{min-height:104px;padding:14px}.stat .num{font-size:28px}.form-row{grid-template-columns:1fr}.top-actions{width:100%}.top-actions .btn{flex:1}.setting{align-items:flex-start;flex-direction:column}}
+      .quick-add{border:1px solid #66558b;background:linear-gradient(135deg,#1b2136,#221e38);border-radius:17px;padding:17px 19px;margin:4px 0 18px}
+    .quick-add label{display:block;color:#e7ddff;font-weight:750;font-size:14px;margin-bottom:9px}
+    .quick-add-row{display:flex;gap:9px;flex-wrap:wrap}
+    .quick-add-row input{flex:1;min-width:190px}
+    .quick-add-help{font-size:12px;color:#ac9bc8;margin:8px 0 0}
+    @media(max-width:510px){.quick-add-row .btn{width:100%}}
+  
+    .quick-add{position:relative;overflow:visible}
+    .quick-add-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:7px}
+    .quick-add-head label{margin:0}
+    .catalog-badge{background:#9475e723;border:1px solid #ac90e748;color:#d5c2ff;border-radius:99px;padding:4px 10px;font-size:12px;font-weight:700}
+    .combo{position:relative;flex:1 1 280px;min-width:180px}
+    .combo input{width:100%;min-width:0;display:block}
+    .suggestions{position:absolute;z-index:30;top:calc(100% + 5px);left:0;width:100%;background:#182339;border:1px solid #748fc4;border-radius:12px;padding:6px;box-shadow:0 18px 45px #000b;max-height:300px;overflow:auto}
+    .suggestions[hidden]{display:none!important}
+    .suggestions button{border:0;color:var(--text);background:none;width:100%;text-align:left;padding:11px;border-radius:8px;display:flex;justify-content:space-between;gap:12px;align-items:center;cursor:pointer}
+    .suggestions button:hover,.suggestions button[aria-selected="true"]{background:#7bb9ff26}
+    .suggestions button small{color:#aabbcf;font-size:11px;text-align:right}
+    .quick-add-row{align-items:flex-start}
+    .quick-add-row .btn{align-self:stretch;min-height:45px}
+    .text-inline-btn{padding:0;background:none;border:0;color:var(--accent);text-decoration:underline;font-weight:700;cursor:pointer}
+    .catalog-intro{display:flex;align-items:center;justify-content:space-between;gap:17px;flex-wrap:wrap;background:linear-gradient(135deg,#1b2b40,#171c2d);border:1px solid var(--line);border-radius:17px;padding:20px}
+    .catalog-intro h2{font-size:20px;margin:0 0 6px}
+    .catalog-intro p{font-size:13px;color:var(--muted);max-width:700px;margin:0}
+    .catalog-count{font-size:12px;color:var(--muted)}
+    .catalog-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin-top:14px}
+    .catalog-card{display:flex;align-items:center;gap:12px;background:#131c29;border:1px solid var(--line);padding:13px;border-radius:13px}
+    .catalog-symbol{font-size:23px;background:#25364b;padding:8px;border-radius:10px}
+    .catalog-detail{min-width:0;flex:1;display:flex;flex-direction:column;gap:3px}
+    .catalog-detail strong{font-size:14px;overflow-wrap:anywhere}
+    .catalog-detail span{font-size:11px;color:var(--muted)}
+    .catalog-card button{font-size:12px;flex:0 0 auto}
+    .catalog-card button:disabled{opacity:.6;cursor:default}
+    @media(max-width:1150px){.catalog-grid{grid-template-columns:1fr}}
+    @media(max-width:510px){.catalog-card{gap:7px;padding:10px}.catalog-symbol{display:none}.catalog-card button{padding:8px 9px;font-size:11px}}
+
+    .editor-panel{background:linear-gradient(150deg,#1b2637,#151c2b);border:2px solid #8ebeff;border-radius:18px;margin:0 0 27px;padding:1px 0;box-shadow:0 14px 34px #0005}
+    .editor-panel .dialog-head{padding-bottom:0}
+    .editor-panel .dialog-body{grid-template-columns:minmax(0,1fr)}
+    .editor-panel .dialog-actions{margin-top:12px}
+    .form-tip{color:var(--muted);font-size:12px;margin:6px 0 0}
+    .editor-panel .combo{width:100%}
+    .editor-panel .suggestions{z-index:35}
+    .editor-panel .form-row{align-items:start}
+    .editor-panel .dialog-body{padding-bottom:23px}
+    @media(min-width:950px){.editor-panel .dialog-body{max-width:760px}}
+    @media(max-width:600px){.editor-panel .form-row{grid-template-columns:1fr}}
+    .save-feedback{border:1px solid #46976a;background:#173728;padding:15px 17px;border-radius:12px;margin:0 0 20px;font-size:14px;font-weight:650}
+    .save-feedback.error{border-color:#e5ae63;background:#3c2b1c;color:#ffe0b0}
+    .save-feedback button{margin-left:9px}
+    .machine.just-added,.distro.just-added{border-color:#70dbac;box-shadow:0 0 0 2px #70dbac55}
+    .editor-error{padding:10px 12px;color:#ffe8e8;background:#5a2525;border:1px solid #a84a4a;border-radius:9px;font-size:13px}
+
+    /* Theme customization: UI surfaces follow four editable palette values. */
+    body{background:radial-gradient(circle at 77% -13%,var(--theme-glow) 0,transparent 39%),var(--bg)}
+    .sidebar{background:var(--theme-sidebar);border-right-color:var(--line)}
+    .mark{background:linear-gradient(135deg,var(--theme-logo-light),var(--accent),var(--theme-logo-dark));color:var(--theme-primary-text)}
+    .nav button.active{background:var(--theme-active);border-color:var(--theme-border)}
+    .nav button:hover{background:var(--theme-active)}
+    .sidebar-label,.brand small,.footer{color:var(--muted)}
+    .side-foot{background:var(--panel);border-color:var(--line)}
+    .btn.primary{background:var(--accent);color:var(--theme-primary-text)}
+    .stat{background:linear-gradient(155deg,var(--panel2),var(--panel))}
+    .machine,.distro,.empty,.setting,.catalog-card{background:var(--panel)}
+    .info,.catalog-intro{background:linear-gradient(145deg,var(--panel2),var(--panel))}
+    .quick-add{background:linear-gradient(135deg,var(--panel),var(--panel2));border-color:var(--line)}
+    .quick-add label,.form-field label{color:var(--text)}
+    .catalog-symbol,.osicon,.device-icon{background:var(--panel2);border-color:var(--line)}
+    .field,.toolbar input,.toolbar select{background:var(--theme-input);color:var(--text)}
+    .suggestions{background:var(--panel2);border-color:var(--line)}
+    .suggestions button{color:var(--text)}
+    .suggestions button:hover,.suggestions button[aria-selected="true"]{background:var(--theme-active)}
+    .editor-panel{background:linear-gradient(150deg,var(--panel2),var(--panel));border-color:var(--accent)}
+    .form-tip,.quick-add-help,.catalog-count{color:var(--muted)}
+    .theme-panel{border:1px solid var(--line);border-radius:17px;background:var(--panel);padding:20px;margin:0 0 25px}
+    .theme-panel .section-head{margin:0 0 13px}
+    .theme-presets{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:20px}
+    .theme-preset{background:var(--theme-input);color:var(--text);border:2px solid var(--line);border-radius:13px;padding:11px 12px;text-align:left;min-width:0;display:flex;gap:10px;align-items:center;font-weight:700}
+    .theme-preset:hover,.theme-preset:focus-visible{border-color:var(--accent)}
+    .theme-preset[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 2px var(--theme-active)}
+    .theme-swatch{display:flex;flex:0 0 auto;width:38px;height:27px;border-radius:8px;overflow:hidden;border:1px solid #ffffff30}
+    .theme-swatch span{flex:1}
+    .theme-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .theme-control{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:11px;padding:12px;background:var(--theme-input)}
+    .theme-control label{flex:1;font-size:13px;font-weight:700}
+    .theme-control input[type="color"]{border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:2px;width:52px;height:38px;cursor:pointer}
+    .theme-control code{font-size:11px;color:var(--muted);font-family:ui-monospace,monospace;min-width:64px}
+    .theme-save-status{font-size:12px;color:var(--muted);margin:14px 0 0}
+    @media(max-width:900px){.theme-presets{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:520px){.theme-controls,.theme-presets{grid-template-columns:1fr}.theme-panel{padding:15px}}
+
+    .disk-status{border-radius:11px;padding:10px 13px;font-weight:700;font-size:13px;margin:-8px 0 23px;border:1px solid #4b936c;background:#183327;color:#b7f2cf}
+    .disk-status.loading{border-color:#6d7490;background:#252938;color:#d1d8e8}
+    .disk-status.saving{border-color:#9b8653;background:#332b19;color:#ffe3a4}
+    .disk-status.error{border-color:#d47c79;background:#391d26;color:#ffc2c0}
+    .star-button{background:var(--panel2);border:1px solid var(--line);color:var(--muted);border-radius:9px;min-width:36px;height:36px;font-size:23px;line-height:1;display:inline-grid;place-items:center;transition:filter .13s,transform .13s;flex-shrink:0}
+    .star-button:hover{filter:brightness(1.2);transform:scale(1.06)}
+    .star-button.is-favorite{color:var(--yellow);border-color:#d5aa6580}
+    .favorite-section{margin-top:24px}.favorite-section .section-head{margin-top:0}
+    .catalog-card .star-button{min-width:36px}
+    .row-chips{display:flex;gap:9px;align-items:center}
+    .favorite-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+    .favorite-grid .catalog-card{min-width:0}.favorite-grid .distro{margin:0;min-height:0}
+    @media(max-width:1000px){.favorite-grid{grid-template-columns:1fr}}
+    /* Branded vector mark; keeps users' existing palette and theme settings intact. */
+    .brand .mark{background:none;width:47px;height:47px;border-radius:12px;flex-shrink:0}
+    .brand .mark img{display:block;width:47px;height:47px;object-fit:contain}
+    .mobile-brand{display:none;align-items:center;gap:8px}
+    .mobile-brand img{width:30px;height:30px;vertical-align:middle}
+    @media(max-width:800px){.mobile-brand{display:flex}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="mark"><img src="assets/DistroVault-icon-64.png" width="47" height="47" alt="DistroVault logo"></div><div><strong>DistroVault</strong><small>Your personal OS vault</small></div></div>
+    <div><div class="sidebar-label">Your workspace</div><nav class="nav" id="nav" aria-label="Main navigation">
+      <button data-page="dashboard" class="active"><span class="glyph">📖</span> Overview</button>
+      <button data-page="machines"><span class="glyph">💻</span> Computers</button>
+      <button data-page="distros"><span class="glyph">🐧</span> My distros</button>
+      <button data-page="favorites"><span class="glyph">⭐</span> Favorites</button>
+      <button data-page="catalog"><span class="glyph">🔎</span> Explore distros</button>
+        <button data-page="queue"><span class="glyph">🏁</span> Test queue</button>
+      <button data-page="settings"><span class="glyph">⚙️</span> Backup & settings</button>
+    </nav></div>
+    <div class="side-foot"><strong>🔒 Private by default</strong>Saved locally on your computer. Use Export backup before upgrading or moving computers.</div>
+  </aside>
+  <main class="main">
+    <div class="mobile-brand"><img src="assets/DistroVault-icon-64.png" width="30" height="30" alt="">DistroVault</div>
+    <header class="top"><div><div class="eyebrow" id="eyebrow">Personal distro tracker</div><h1 id="pageTitle">Your Linux lab</h1><p class="lead" id="pageDesc">Keep your machines, installed operating systems, and future experiments in one place.</p></div><div class="top-actions" id="topActions"></div></header>
+    <div id="diskStatus" class="disk-status loading" role="status" aria-live="polite">Checking saved data…</div>
+    <section id="editorPanel" class="editor-panel hidden" aria-labelledby="dialogTitle">
+  <form id="editForm">
+    <div class="dialog-head"><h2 id="dialogTitle">Add</h2><p id="dialogDesc"></p></div>
+    <div class="dialog-body" id="formFields"></div>
+  </form>
+</section>
+    <div id="content"></div>
+    <div class="footer">DistroVault Desktop v0.1.2 • Your computers, distros, favorites, and colors are saved on your computer.</div>
+  </main>
+</div>
+
+<input type="file" accept="application/json,.json" id="importFile" class="hidden">
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script>
+(async()=>{
+  'use strict';
+  const seed={machines:[],distros:[],favoriteCatalog:[]};
+  const clone=x=>JSON.parse(JSON.stringify(x));
+  const el=id=>document.getElementById(id);
+  const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const label={current:'Installed',testing:'Testing',tried:'Tried',wishlist:'Want to test'};
+  const CATALOG_GROUPS={
+  "Popular desktops": [
+    "Ubuntu",
+    "Debian",
+    "Fedora Linux",
+    "Linux Mint",
+    "Arch Linux",
+    "EndeavourOS",
+    "CachyOS",
+    "Manjaro",
+    "Zorin OS",
+    "Pop!_OS",
+    "elementary OS",
+    "openSUSE Tumbleweed",
+    "KDE neon",
+    "Solus",
+    "MX Linux",
+    "Nobara Linux",
+    "Bazzite",
+    "Garuda Linux",
+    "NixOS",
+    "Gentoo",
+    "Void Linux"
+  ],
+  "Arch & rolling": [
+    "Artix Linux",
+    "ArcoLinux",
+    "Archcraft",
+    "ArchBang",
+    "ArchLabs Linux",
+    "Mabox Linux",
+    "RebornOS",
+    "BigLinux",
+    "blendOS",
+    "Crystal Linux",
+    "Omarchy",
+    "Parabola GNU/Linux-libre",
+    "BlackArch",
+    "SteamOS",
+    "ChimeraOS",
+    "Hyperbola GNU/Linux-libre",
+    "XeroLinux",
+    "Manjaro ARM"
+  ],
+  "Ubuntu flavors & derivatives": [
+    "Kubuntu",
+    "Xubuntu",
+    "Lubuntu",
+    "Ubuntu MATE",
+    "Ubuntu Budgie",
+    "Ubuntu Cinnamon",
+    "Ubuntu Studio",
+    "Ubuntu Unity",
+    "Ubuntu Kylin",
+    "Edubuntu",
+    "Ubuntu Server",
+    "Linux Mint Debian Edition (LMDE)",
+    "TUXEDO OS",
+    "Linux Lite",
+    "Bodhi Linux",
+    "Peppermint OS",
+    "Feren OS",
+    "Nitrux",
+    "AnduinOS",
+    "PikaOS",
+    "Vanilla OS",
+    "Wubuntu",
+    "KDE neon Unstable"
+  ],
+  "Debian family": [
+    "antiX",
+    "SparkyLinux",
+    "Q4OS",
+    "Devuan",
+    "Deepin",
+    "Endless OS",
+    "SpiralLinux",
+    "Siduction",
+    "BunsenLabs Linux",
+    "Porteus",
+    "Slax",
+    "PureOS",
+    "Trisquel GNU/Linux",
+    "Voyager Live",
+    "Pardus",
+    "Raspberry Pi OS",
+    "DietPi",
+    "Armbian",
+    "AV Linux",
+    "Emmabuntüs",
+    "Kali Linux",
+    "Parrot OS",
+    "Tails",
+    "Kaisen Linux",
+    "Proxmox VE"
+  ],
+  "Fedora, RHEL & atomic": [
+    "RakuOS",
+    "RakuOS niri",
+    "RakuOS Hyprland",
+    "RakuOS COSMIC",
+    "RakuOS KDE Plasma",
+    "RakuOS GNOME",
+    "Fedora Workstation",
+    "Fedora KDE Plasma Desktop",
+    "Fedora Silverblue",
+    "Fedora Kinoite",
+    "Fedora Sway Atomic",
+    "Fedora Budgie Atomic",
+    "Fedora COSMIC",
+    "Fedora Xfce",
+    "Fedora LXQt",
+    "Fedora Cinnamon",
+    "Fedora MATE-Compiz",
+    "Fedora Asahi Remix",
+    "Ultramarine Linux",
+    "Bluefin",
+    "Aurora",
+    "AlmaLinux",
+    "Rocky Linux",
+    "CentOS Stream",
+    "Red Hat Enterprise Linux",
+    "Qubes OS",
+    "Universal Blue",
+    "Fedora Server"
+  ],
+  "Independent & other families": [
+    "openSUSE Leap",
+    "openSUSE Slowroll",
+    "openSUSE Aeon",
+    "openSUSE Kalpa",
+    "SUSE Linux Enterprise",
+    "Mageia",
+    "OpenMandriva Lx",
+    "PCLinuxOS",
+    "Slackware Linux",
+    "Alpine Linux",
+    "Chimera Linux",
+    "KaOS",
+    "CRUX",
+    "Funtoo Linux",
+    "Exherbo",
+    "Guix System",
+    "Bedrock Linux",
+    "AerynOS",
+    "Clear Linux OS",
+    "Calculate Linux",
+    "NethServer"
+  ],
+  "Lightweight & vintage": [
+    "Tiny Core Linux",
+    "Puppy Linux",
+    "SliTaz",
+    "Damn Small Linux",
+    "4MLinux",
+    "antiX Linux",
+    "BunsenLabs",
+    "Absolute Linux",
+    "Q4OS Trinity",
+    "Porteus Linux",
+    "SparkyLinux MinimalGUI",
+    "Slax Linux",
+    "Bodhi Linux Legacy",
+    "Alpine Linux Desktop"
+  ],
+  "Gaming & media": [
+    "Batocera.linux",
+    "Lakka",
+    "Recalbox",
+    "LibreELEC",
+    "CoreELEC",
+    "RetroPie",
+    "HoloISO",
+    "Garuda Dr460nized",
+    "Nobara Official",
+    "Bazzite Deck",
+    "Regata OS",
+    "GamerOS",
+    "ChimeraOS Desktop"
+  ],
+  "Privacy, security & niche": [
+    "Whonix",
+    "Kicksecure",
+    "Kodachi Linux",
+    "Parrot Security",
+    "Kali Purple",
+    "Tails OS",
+    "BlackArch Linux",
+    "BackBox Linux",
+    "CAINE Linux",
+    "Security Onion",
+    "SystemRescue",
+    "Clonezilla Live",
+    "GParted Live"
+  ],
+  "Other operating systems": [
+    "KolibriOS",
+    "Haiku",
+    "FreeBSD",
+    "OpenBSD",
+    "NetBSD",
+    "GhostBSD",
+    "DragonFly BSD",
+    "ReactOS",
+    "Redox OS",
+    "SerenityOS",
+    "OpenIndiana",
+    "ChromeOS Flex",
+    "FydeOS",
+    "FreeDOS"
+  ]
+};
+  const distroCatalog=Object.entries(CATALOG_GROUPS).flatMap(([category,names])=>names.map(name=>({name,category}))).filter((d,i,all)=>all.findIndex(other=>other.name.toLowerCase()===d.name.toLowerCase())===i);
+  const normalize=s=>String(s||'').normalize('NFKD').toLowerCase().replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'');
+  function matchCatalog(raw,limit=9){const q=normalize(raw);if(!q)return[];return distroCatalog.filter(d=>normalize(d.name).includes(q)||normalize(d.category).includes(q)).sort((a,b)=>{
+      const rank=d=>Number(!normalize(d.name).startsWith(q))*10+Number(d.category!=='Popular desktops')*3+d.name.length/100;
+      return rank(a)-rank(b)||a.name.localeCompare(b.name);
+    }).slice(0,limit)}
+  // Palettes are safe, validated hex values. Old backup files without a palette still work.
+  const themeDefault={accent:'#87bbff',background:'#0c1018',cards:'#131a26',sidebar:'#0e1520'};
+  const themePresets={
+    midnight:{label:'Midnight',...themeDefault},
+    forest:{label:'Forest',accent:'#70dbac',background:'#0a1712',cards:'#15251e',sidebar:'#0e1d17'},
+    violet:{label:'Violet',accent:'#c5a7ff',background:'#13101e',cards:'#201b30',sidebar:'#171427'},
+    sunset:{label:'Sunset',accent:'#ffae81',background:'#21140f',cards:'#30211b',sidebar:'#251713'}
+  };
+  const themeKeys=Object.keys(themeDefault);
+  function normalizedTheme(candidate){
+    const next={...themeDefault};
+    if(candidate&&typeof candidate==='object')for(const key of themeKeys){
+      const value=candidate[key];if(typeof value==='string'&&/^#[a-fA-F0-9]{6}$/.test(value))next[key]=value.toLowerCase();
+    }
+    return next;
+  }
+  function mixHex(a,b,p){const aa=a.slice(1),bb=b.slice(1),out=[];for(let i=0;i<6;i+=2){const x=parseInt(aa.slice(i,i+2),16),y=parseInt(bb.slice(i,i+2),16);out.push(Math.round(x*(1-p)+y*p).toString(16).padStart(2,'0'))}return '#'+out.join('')}
+  function lightColor(hex){const h=hex.slice(1),rgb=[0,2,4].map(i=>parseInt(h.slice(i,i+2),16)/255).map(v=>v<=0.04045?v/12.92:((v+0.055)/1.055)**2.4);return (rgb[0]*.2126+rgb[1]*.7152+rgb[2]*.0722)>.38}
+  function applyTheme(theme){
+    const t=normalizedTheme(theme),root=document.documentElement.style;
+    const light=lightColor(t.cards);
+    const vars={
+      '--accent':t.accent,'--bg':t.background,'--panel':t.cards,'--panel2':mixHex(t.cards,t.accent,.10),
+      '--theme-sidebar':t.sidebar,'--theme-input':mixHex(t.cards,t.background,.37),
+      '--theme-glow':mixHex(t.background,t.accent,.20),
+      '--theme-active':mixHex(t.cards,t.accent,.19),'--theme-border':mixHex(t.cards,t.accent,.35),
+      '--theme-logo-light':mixHex(t.accent,'#ffffff',.40),'--theme-logo-dark':mixHex(t.accent,t.background,.25),
+      '--theme-primary-text':lightColor(t.accent)?'#071627':'#ffffff',
+      '--text':light?'#152237':'#eef3fb','--muted':light?'#53677e':'#98a6bb',
+      '--line':light?'#c6d1df':'#293448'
+    };
+    Object.entries(vars).forEach(([key,value])=>root.setProperty(key,value));
+  }
+  function cleanFavoriteCatalog(value){return Array.isArray(value)?[...new Set(value.filter(x=>typeof x==='string'&&x.length<=90))]:[]}
+  function selectedThemeId(){return Object.keys(themePresets).find(k=>themeKeys.every(key=>themePresets[k][key].toLowerCase()===data.theme[key]))||''}
+  function themeStatus(message){const node=el('themeSaveStatus');if(node)node.textContent=message}
+  const pages={dashboard:['Personal distro tracker','Your Linux lab','Keep your machines, installed operating systems, and future experiments in one place.'],machines:['Hardware inventory','Your computers','Give every laptop and desktop its own home.'],distros:['Your OS collection','My distros','Every operating system you run, test, or want to try.'],favorites:['Your star collection','Favorites','Your starred computers and distros in one place, including discoveries from Explore distros.'],catalog:['Offline discovery','Explore distros','Find a distro in the built-in catalogue and add it to your test queue.'],queue:['Next experiments','Test queue','Your shortlist of operating systems to explore next.'],settings:['Your preferences','Backup & settings','Customize your app colors and manage backups.']};
+  // Native file-backed saving via the Tauri desktop runtime; no Python or browser storage.
+  let data=clone(seed), storageReady=false, writesPending=0;
+  let saveQueue=Promise.resolve(true);
+  const saveState=el('diskStatus');
+  const native=window.__TAURI__?.core;
+  function showDiskStatus(message,kind='loading'){
+    saveState.textContent=message;
+    saveState.className='disk-status '+kind;
+  }
+  try{
+    if(!native?.invoke)throw Error('Open DistroVault through the desktop application, not by double-clicking this HTML.');
+    const loaded=await native.invoke('load_data');
+    if(loaded!==null&&!valid(loaded))throw Error('Saved data file is invalid. It was NOT overwritten.');
+    if(loaded!==null)data=loaded;
+    storageReady=true;
+    showDiskStatus(loaded===null?'● Ready — import your DistroVault Desktop v0.1 JSON backup or add a computer':'✓ Loaded your saved data from disk','ok');
+  }catch(err){
+    showDiskStatus('⚠ NOT SAVING — '+String(err),'error');
+  }
+  data.favoriteCatalog=cleanFavoriteCatalog(data.favoriteCatalog);
+  data.theme=normalizedTheme(data.theme);
+  applyTheme(data.theme);
+  let page='dashboard',query='',statusFilter='all',machineFilter='all',editing=null,catalogQuery='',suggestionIndex=-1;
+  const machine=id=>data.machines.find(m=>m.id===id);
+  const machineName=id=>machine(id)?.name||'Not assigned';
+  const sortedMachines=()=>[...data.machines].sort((a,b)=>a.name.localeCompare(b.name));
+  const sortedDistros=()=>[...data.distros].sort((a,b)=>a.name.localeCompare(b.name));
+  const chip=(status,text)=>`<span class="chip ${esc(status)}">${esc(text??label[status]??status)}</span>`;
+  const uuid=()=>typeof crypto!=='undefined'&&crypto.randomUUID?crypto.randomUUID():'id-'+Date.now()+'-'+Math.random().toString(36).slice(2,8);
+  function valid(d){return d&&Array.isArray(d.machines)&&Array.isArray(d.distros)&&d.machines.every(x=>x&&typeof x.id==='string'&&typeof x.name==='string')&&d.distros.every(x=>x&&typeof x.id==='string'&&typeof x.name==='string'&&['current','testing','tried','wishlist'].includes(x.status))}
+  async function save(){
+    if(!storageReady){
+      showDiskStatus('⚠ NOT SAVED — use the compiled DistroVault desktop app.','error');
+      return false;
+    }
+    const snapshot=JSON.stringify(data);
+    writesPending++;
+    showDiskStatus('Saving to disk…','saving');
+    // Serialize writes so that rapid edits or theme changes save in order.
+    const task=saveQueue.catch(()=>false).then(async()=>{
+      const confirmed=await native.invoke('save_data',{payload:JSON.parse(snapshot)});
+      if(confirmed!==true)throw Error('The app did not confirm the disk save.');
+      return true;
+    }).catch(err=>{
+      console.error('DistroVault disk save failed:',err);
+      showDiskStatus('⚠ SAVE FAILED — '+String(err)+' Export a backup before closing.','error');
+      return false;
+    }).then(success=>{
+      writesPending--;
+      if(writesPending===0&&success)showDiskStatus('✓ Saved to disk','ok');
+      if(!success)storageReady=false;
+      return success;
+    });
+    saveQueue=task;
+    return task;
+  }
+  let toastTimer;function toast(msg){const t=el('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),3200)}
+  const osFamilies={linux:{label:'Linux',icon:'🐧'},windows:{label:'Windows',icon:'🪟'},macos:{label:'macOS',icon:'🍎'},independent:{label:'Independent OS',icon:'🧩'},other:{label:'Other / mixed OS',icon:'💿'}};
+  function machineDetails(m){
+    const parts=[m.cpu,m.ram,m.storage,m.gpu,m.display,m.specs].filter(s=>typeof s==='string'&&s.trim());
+    return parts.length?parts.join(' • '):(m.type||'Computer');
+  }
+  function machineOSChips(m){
+    const installed=data.distros.filter(d=>d.machineId===m.id&&d.status==='current');
+    const osName=String(m.osName||'').trim();
+    const family=osFamilies[m.osFamily];
+    const primary=(family||osName)?chip('current',[family?family.icon+' '+family.label:'',osName].filter(Boolean).join(' • ')):'';
+    const names=installed.filter(d=>!osName||normalize(d.name)!==normalize(osName));
+    return primary+names.map(d=>chip('current',d.name)).join('') || chip('','No installed OS recorded');
+  }
+  function favoriteButton(kind,entry){const isFav=Boolean(entry.favorite),name=entry.name;return `<button type="button" class="star-button ${isFav?'is-favorite':''}" data-action="toggle-favorite" data-fav-kind="${kind}" data-id="${esc(entry.id)}" aria-pressed="${isFav}" aria-label="${isFav?'Remove '+esc(name)+' from favorites':'Add '+esc(name)+' to favorites'}" title="${isFav?'Remove from favorites':'Add to favorites'}">${isFav?'★':'☆'}</button>`}
+  function catalogFavoriteButton(name){const isFav=data.favoriteCatalog.some(n=>normalize(n)===normalize(name));return `<button type="button" class="star-button ${isFav?'is-favorite':''}" data-action="toggle-catalog-favorite" data-name="${esc(name)}" aria-pressed="${isFav}" aria-label="${isFav?'Remove '+esc(name)+' from favorite distros':'Add '+esc(name)+' to favorite distros'}" title="${isFav?'Remove from favorites':'Add to favorites'}">${isFav?'★':'☆'}</button>`}
+  function machineCard(m){return `<article class="machine" data-card-id="${esc(m.id)}"><div class="card-top"><div class="device-icon">${m.type==='Desktop'?'🖥️':m.type==='Mini PC'?'🧊':'💻'}</div><div class="card-actions">${favoriteButton('machine',m)}<button class="linkbtn" data-action="edit-machine" data-id="${esc(m.id)}">Edit</button><button class="linkbtn warn" data-action="delete-machine" data-id="${esc(m.id)}">Delete</button></div></div><div><h3>${esc(m.name)}</h3><p class="sub">${esc(machineDetails(m))}</p></div><div class="machine-os">${machineOSChips(m)}</div>${m.notes?`<div class="note">${esc(m.notes)}</div>`:''}</article>`}
+  function distroCard(d,opts={}){const short=opts.short;return `<article class="distro" data-card-id="${esc(d.id)}"><div class="osicon">${d.name.toLowerCase().includes('fedora')?'🔷':d.name.toLowerCase().includes('ubuntu')?'🟠':d.name.toLowerCase().includes('zorin')?'✨':d.name.toLowerCase().includes('kolibri')?'🐦':'🐧'}</div><div class="distromain"><div class="distro-title"><h3>${esc(d.name)}${d.version?' '+esc(d.version):''}</h3><div class="row-chips">${favoriteButton('distro',d)} ${chip(d.status)}</div></div><div class="sub">${esc(d.desktop||'Desktop not specified')} <span aria-hidden="true">·</span> ${esc(machineName(d.machineId))}</div>${!short&&d.notes?`<div class="note">${esc(d.notes)}</div>`:''}<div class="card-actions"><button class="linkbtn" data-action="edit-distro" data-id="${esc(d.id)}">Edit</button>${d.status==='wishlist'?`<button class="linkbtn" data-action="status-testing" data-id="${esc(d.id)}">Start testing</button>`:''}${d.status==='testing'?`<button class="linkbtn" data-action="status-tried" data-id="${esc(d.id)}">Mark tried</button>`:''}${!short?`<button class="linkbtn warn actions-right" data-action="delete-distro" data-id="${esc(d.id)}">Delete</button>`:''}</div></div></article>`}
+  function empty(icon,title,description){return `<div class="empty"><span>${icon}</span><strong>${esc(title)}</strong><p>${esc(description)}</p></div>`}
+  function render(){
+    const p=pages[page];el('eyebrow').textContent=p[0];el('pageTitle').textContent=p[1];el('pageDesc').textContent=p[2];
+    el('nav').querySelectorAll('button').forEach(b=>{const a=b.dataset.page===page;b.classList.toggle('active',a);if(a)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});
+    el('topActions').innerHTML=page==='machines'
+      ?'<button class="btn primary" type="button" data-action="add-machine">+ Computer</button>'
+      :page==='distros'
+      ?'<button class="btn primary" type="button" data-action="add-distro">+ Distro</button>'
+      :page==='queue'
+      ?'<button class="btn primary" type="button" data-action="add-wishlist">+ Want to test</button>'
+      :'';
+    if(page==='dashboard')return renderDashboard();
+    if(page==='machines')return renderMachines();
+    if(page==='distros')return renderDistros();
+    if(page==='favorites')return renderFavorites();
+    if(page==='catalog')return renderCatalog();
+    if(page==='queue')return renderQueue();
+    renderSettings();
+  }
+  function renderDashboard(){
+    const current=data.distros.filter(d=>d.status==='current'),queue=data.distros.filter(d=>d.status==='wishlist'),testing=data.distros.filter(d=>d.status==='testing');
+    const stat=(n,l,i)=>`<article class="stat"><span class="tiny">${i}</span><div class="num">${n}</div><div class="label">${l}</div></article>`;
+    el('content').innerHTML=`<section class="stats" aria-label="Library statistics">${stat(data.machines.length,'Computers','💻')}${stat(current.length,'Installed distros','◉')}${stat(testing.length,'Testing now','🧪')}${stat(queue.length,'Want to test','☆')}</section><div class="cols"><section><div class="section-head"><div><h2>Your machines</h2><p>What is running where</p></div><button class="linkbtn" data-action="page-machines">View all →</button></div><div class="grid">${data.machines.length?sortedMachines().slice(0,6).map(machineCard).join(''):empty('💻','No computers yet','Add your first laptop or desktop.')}</div></section><section><div class="section-head"><div><h2>Up next</h2><p>Distros on your watchlist</p></div><button class="linkbtn" data-action="page-queue">View queue →</button></div><div class="compact">${queue.length?queue.slice(0,4).map(d=>distroCard(d,{short:true})).join(''):empty('☆','Queue is empty','Add a distro and set its status to “Want to test”.')}</div><div class="info" style="margin-top:17px"><h3>👋 Make this your own</h3><p><strong>DistroVault</strong> — Your machines. Your distros. Your vault.</p><ol class="steps"><li>Add or edit a computer.</li><li>Link an installed distro to it.</li><li>Build a test queue for future installs.</li></ol></div></section></div>`;
+  }
+  // Keep the search element in the DOM while typing. Only redraw the results, never the focused input.
+  function renderMachines(){
+    el('content').innerHTML=`<div class="toolbar"><input data-filter="query" type="search" placeholder="Search your computers…" aria-label="Search computers" value="${esc(query)}"></div><div id="machineResults" class="grid" aria-live="polite"></div>`;
+    refreshMachineResults();
+  }
+  function refreshMachineResults(){
+    const container=el('machineResults');if(!container)return;
+    const q=query.toLowerCase();
+    const list=sortedMachines().filter(m=>(m.name+' '+machineDetails(m)+' '+(m.osName||'')+' '+(osFamilies[m.osFamily]?.label||'')+' '+(m.notes||'')).toLowerCase().includes(q));
+    container.innerHTML=list.length?list.map(machineCard).join(''):empty('💻','No matching computers','Try a different search or add a computer.');
+  }
+  function renderDistros(){
+    el('content').innerHTML=`<div class="toolbar"><input data-filter="query" type="search" placeholder="Search distros or desktop environments…" aria-label="Search distros" value="${esc(query)}"><select data-filter="status" aria-label="Filter by status"><option value="all">All statuses</option>${Object.entries(label).map(([v,t])=>`<option value="${v}" ${statusFilter===v?'selected':''}>${t}</option>`).join('')}</select><select data-filter="machine" aria-label="Filter by computer"><option value="all">All computers</option><option value="" ${machineFilter===''?'selected':''}>Unassigned</option>${sortedMachines().map(m=>`<option value="${esc(m.id)}" ${machineFilter===m.id?'selected':''}>${esc(m.name)}</option>`).join('')}</select></div><div id="distroResults" class="listing" aria-live="polite"></div>`;
+    refreshDistroResults();
+  }
+  function refreshDistroResults(){
+    const container=el('distroResults');if(!container)return;
+    const q=query.toLowerCase();
+    const list=sortedDistros().filter(d=>(statusFilter==='all'||d.status===statusFilter)&&(machineFilter==='all'||d.machineId===machineFilter)&&(d.name+' '+d.version+' '+d.desktop+' '+d.notes+' '+machineName(d.machineId)).toLowerCase().includes(q));
+    container.innerHTML=list.length?list.map(distroCard).join(''):empty('🐧','No matching distros','Adjust the filters or add a new distro.');
+  }
+  function renderFavorites(){
+    el('content').innerHTML=`<div class="toolbar"><input data-filter="query" type="search" placeholder="Search your favorites…" aria-label="Search favorites" value="${esc(query)}"></div><div id="favoriteResults" aria-live="polite"></div>`;
+    refreshFavoriteResults();
+  }
+  function refreshFavoriteResults(){
+    const node=el('favoriteResults');if(!node)return;
+    const q=normalize(query);
+    const machines=sortedMachines().filter(m=>m.favorite&&(!q||normalize(m.name+' '+machineDetails(m)+' '+(m.osName||'')).includes(q)));
+    const distros=sortedDistros().filter(d=>d.favorite&&(!q||normalize(d.name+' '+d.desktop+' '+machineName(d.machineId)).includes(q)));
+    const bookmarks=data.favoriteCatalog.filter(name=>!q||normalize(name).includes(q));
+    const favoriteCount=data.machines.filter(m=>m.favorite).length+data.distros.filter(d=>d.favorite).length+data.favoriteCatalog.length;
+    if(!favoriteCount){node.innerHTML=empty('⭐','No favorites yet','Star a computer or a distro, including from Explore distros, to save it here.');return}
+    if(!machines.length&&!distros.length&&!bookmarks.length){node.innerHTML=empty('🔎','No matching favorites','Try searching for another computer or distro.');return}
+    // Keep the underlying saved bookmarks unchanged; simply display all starred distros together.
+    const starredDistros=[
+      ...distros.map(d=>({name:d.name,html:distroCard(d)})),
+      ...bookmarks.map(name=>{
+        const inQueue=data.distros.some(d=>d.status==='wishlist'&&normalize(d.name)===normalize(name));
+        const html=`<article class="catalog-card"><span class="catalog-symbol">🐧</span><div class="catalog-detail"><strong>${esc(name)}</strong><span>From Explore distros</span></div>${catalogFavoriteButton(name)}<button class="btn small ${inQueue?'ghost':'primary'}" type="button" data-action="catalog-add" data-name="${esc(name)}" ${inQueue?'disabled':''}>${inQueue?'✓ In queue':'+ Want to test'}</button></article>`;
+        return {name,html};
+      })
+    ].sort((a,b)=>a.name.localeCompare(b.name));
+    node.innerHTML=`<section class="favorite-section"><div class="section-head"><div><h2>💻 Favorite computers (${machines.length})</h2><p>Your starred hardware</p></div></div><div class="grid">${machines.length?machines.map(machineCard).join(''):empty('💻','No favorite computers','Star computers in the Computers tab.')}</div></section><section class="favorite-section"><div class="section-head"><div><h2>🐧 Favorite distros (${starredDistros.length})</h2><p>Star distros from My distros, Test queue, or Explore distros — they all appear here</p></div></div><div class="favorite-grid">${starredDistros.length?starredDistros.map(d=>d.html).join(''):empty('🐧','No favorite distros','Star a distro in My distros, the Test queue, or Explore distros.')}</div></section>`;
+  }
+  function renderQueue(){
+    const queue=sortedDistros().filter(d=>d.status==='wishlist'||d.status==='testing');
+    const wishlist=queue.filter(d=>d.status==='wishlist'),testing=queue.filter(d=>d.status==='testing');
+    el('content').innerHTML=`<div class="quick-add"><div class="quick-add-head"><label for="wishlistName">Add a distro you want to test</label><span class="catalog-badge">📚 ${distroCatalog.length} built-in names</span></div><div class="quick-add-row"><div class="combo"><input id="wishlistName" class="field" type="text" maxlength="90" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="wishlistSuggestions" placeholder="Start typing: Fedora, CachyOS, Linux Mint…"><div id="wishlistSuggestions" role="listbox" class="suggestions" hidden></div></div><button class="btn primary" type="button" data-action="wishlist-quick-add">+ Add to want to test</button></div><p class="quick-add-help">Pick a suggestion, then click Add. Custom distro names work too. Or <button type="button" class="text-inline-btn" data-action="page-catalog">browse the full catalogue</button>.</p></div>
+    <div class="section-head"><div><h2>Currently testing <span style="color:var(--yellow)">(${testing.length})</span></h2><p>Experiments in progress</p></div></div>
+    <div class="listing">${testing.length?testing.map(distroCard).join(''):empty('🧪','Nothing being tested','Use “Start testing” on a distro from your wishlist.')}</div>
+    <div class="section-head"><div><h2>Want to test <span style="color:var(--purple)">(${wishlist.length})</span></h2><p>Future Linux adventures</p></div><button class="btn small" data-action="add-wishlist">+ More details</button></div>
+    <div class="listing">${wishlist.length?wishlist.map(distroCard).join(''):empty('☆','No distros on the wishlist','Type a distro name in the box above to add it.')}</div>`;
+  }
+  function renderCatalog(){
+    el('content').innerHTML=`<div class="catalog-intro"><div><h2>🐧 Browse the offline distro catalogue</h2><p>A hand-picked list of ${distroCatalog.length} Linux distributions, variants, and other operating systems. This catalogue is built into the file, so search works without internet.</p></div><button class="btn small" data-action="page-queue">View test queue ☆</button></div><div class="toolbar"><input id="catalogSearch" type="search" class="field" placeholder="Search the catalogue, e.g. Arch, Fedora, retro…" value="${esc(catalogQuery)}" aria-label="Search built-in distro catalogue"></div><p class="catalog-count" id="catalogCount"></p><div class="catalog-grid" id="catalogResults"></div>`;
+    renderCatalogResults();
+  }
+  function renderCatalogResults(){
+    const q=normalize(catalogQuery),items=distroCatalog.filter(d=>!q||normalize(d.name).includes(q)||normalize(d.category).includes(q)).sort((a,b)=>a.name.localeCompare(b.name));
+    el('catalogCount').textContent=`${items.length} matching name${items.length===1?'':'s'} • You can also type any name not in the list`;
+    el('catalogResults').innerHTML=items.length?items.map(d=>{
+      const inQueue=data.distros.some(x=>x.status==='wishlist'&&normalize(x.name)===normalize(d.name));
+      return `<article class="catalog-card"><span class="catalog-symbol">🐧</span><div class="catalog-detail"><strong>${esc(d.name)}</strong><span>${esc(d.category)}</span></div>${catalogFavoriteButton(d.name)}<button class="btn small ${inQueue?'ghost':'primary'}" type="button" data-action="catalog-add" data-name="${esc(d.name)}" ${inQueue?'disabled':''}>${inQueue?'✓ In queue':'+ Want to test'}</button></article>`
+    }).join(''):empty('🔍','No matches','Try another keyword, or use the Test queue to add any custom name.');
+  }
+  function drawSuggestions(){
+    const inp=el('wishlistName'),list=el('wishlistSuggestions');if(!inp||!list)return;
+    const q=inp.value.trim();const matches=matchCatalog(q,9);suggestionIndex=-1;
+    list.hidden=!q||!matches.length;
+    inp.setAttribute('aria-expanded',String(!list.hidden));
+    list.innerHTML=matches.map((d,i)=>`<button type="button" role="option" aria-selected="false" id="suggestion-${i}" data-suggestion="${esc(d.name)}"><strong>${esc(d.name)}</strong><small>${esc(d.category)}</small></button>`).join('');
+  }
+  function closeSuggestions(){const list=el('wishlistSuggestions'),inp=el('wishlistName');if(list)list.hidden=true;if(inp){inp.setAttribute('aria-expanded','false');inp.removeAttribute('aria-activedescendant')}suggestionIndex=-1;}
+  function selectSuggestion(name){const inp=el('wishlistName');if(!inp)return;inp.value=name;closeSuggestions();inp.focus();}
+  async function addWishlist(raw){
+    const name=String(raw||'').trim().slice(0,90);if(!name){toast('Type or select a distro name first');el('wishlistName')?.focus();return false;}
+    if(data.distros.some(d=>d.status==='wishlist'&&normalize(d.name)===normalize(name))){toast(name+' is already in your Want to test list');closeSuggestions();return false;}
+    data.distros.push({id:uuid(),name,version:'',desktop:'',status:'wishlist',machineId:'',notes:''});
+    const saved=await save();render();toast(saved?name+' added — saved to disk ✓':name+' added in memory only — export a backup or retry the launcher');
+    el('wishlistName')?.focus();return true;
+  }
+  function renderSettings(){
+    const active=selectedThemeId();
+    const presets=Object.entries(themePresets).map(([id,preset])=>`<button type="button" class="theme-preset" data-action="theme-preset" data-theme-id="${id}" aria-pressed="${active===id}"><span class="theme-swatch" aria-hidden="true"><span style="background:${preset.background}"></span><span style="background:${preset.cards}"></span><span style="background:${preset.accent}"></span></span>${esc(preset.label)}</button>`).join('');
+    const controls=[['accent','Accent / buttons'],['background','Main background'],['cards','Cards / panels'],['sidebar','Sidebar']].map(([key,title])=>`<div class="theme-control"><label for="theme-${key}">${title}</label><input type="color" id="theme-${key}" data-theme-color="${key}" value="${data.theme[key]}" aria-label="${title} color"><code data-theme-value="${key}">${data.theme[key].toUpperCase()}</code></div>`).join('');
+    el('content').innerHTML=`<section class="theme-panel" aria-labelledby="themeHeading"><div class="section-head"><div><h2 id="themeHeading">🎨 Customize app colors</h2><p>Pick a preset or create your own palette. Preview changes instantly.</p></div><button type="button" class="btn small" data-action="theme-reset">Reset colors</button></div><div class="theme-presets" aria-label="Color themes">${presets}</div><div class="theme-controls">${controls}</div><p id="themeSaveStatus" class="theme-save-status" role="status">Colors save to the local DistroVault application data folder.</p></section><div class="info"><h3>💾 Your data is a real file</h3><p>Use the desktop app (not the HTML file directly). Computers, distros, and colors are saved into <strong>DistroVault-data.json</strong> in your operating system’s application data folder. The previous save is kept as <strong>DistroVault-data.previous.json</strong>. You can still export/import backups manually.</p></div><div class="setting"><div><h3>Export JSON backup</h3><p>Save your machines, distros, favorite stars, notes, and color preferences in one file.</p></div><button class="btn primary" data-action="export">Export backup</button></div><div class="setting"><div><h3>Import JSON backup</h3><p>Replace the saved collection with a previously exported file, including colors and favorites when present.</p></div><button class="btn" data-action="import">Import backup</button></div><div class="setting"><div><h3>Restore starter entries</h3><p>Delete your changes here and reload the example computers, distros, and colors.</p></div><button class="btn danger" data-action="reset">Reset data</button></div>`;
+  }
+  function option(value,text,selected){return `<option value="${esc(value)}" ${String(value)===String(selected)?'selected':''}>${esc(text)}</option>`}
+  function formField(name,labelText,value='',opts={}){const id='f-'+name;return `<div class="form-field"><label for="${id}">${esc(labelText)}${opts.required?' *':''}</label>${opts.textarea?`<textarea class="field" id="${id}" name="${name}" rows="3" placeholder="${esc(opts.placeholder||'')}">${esc(value)}</textarea>`:`<input class="field" id="${id}" name="${name}" value="${esc(value)}" ${opts.required?'required':''} maxlength="${opts.max||200}" placeholder="${esc(opts.placeholder||'')}">`}</div>`}
+  function selectField(name,labelText,options,selected){return `<div class="form-field"><label for="f-${name}">${esc(labelText)}</label><select class="field" id="f-${name}" name="${name}">${options.map(o=>option(o.value,o.text,selected)).join('')}</select></div>`}
+  function distroNameField(value=''){
+    return `<div class="form-field"><label for="f-name">Distro / operating system *</label><div class="combo"><input class="field" id="f-name" name="name" value="${esc(value)}" required maxlength="90" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="editorSuggestions" placeholder="Start typing: Fedora, CachyOS, Linux Mint…"><div id="editorSuggestions" role="listbox" class="suggestions" hidden></div></div><p class="form-tip">Select a suggestion, or enter any distro name yourself.</p></div>`;
+  }
+  function openEditor(type,id,defaultStatus){
+    editing={type,id:id||null};
+    const item=type==='machine'?(data.machines.find(x=>x.id===id)||{}):(data.distros.find(x=>x.id===id)||{});
+    const add=!id;
+    el('dialogTitle').textContent=(add?'Add ':'Edit ')+(type==='machine'?'computer':'distro');
+    el('dialogDesc').textContent=type==='machine'?'Choose an OS type and name, then fill in your hardware specs.':'Start typing to search the distro library, then choose status and computer.';
+    const buttons=`<div id="editorError" class="editor-error hidden" role="alert"></div><div class="dialog-actions"><button type="button" class="btn ghost" data-action="close">Cancel</button><button type="button" class="btn primary" data-action="save-editor">${add?'Save '+(type==='machine'?'computer':'distro'):'Save changes'}</button></div>`;
+    if(type==='machine'){
+      el('formFields').innerHTML=formField('name','Computer name',item.name,{required:true,placeholder:'e.g. ThinkPad X230',max:90})+
+        `<div class="form-row">`+selectField('type','Computer type',[
+          {value:'Laptop',text:'Laptop'},{value:'Desktop',text:'Desktop'},
+          {value:'Mini PC',text:'Mini PC'},{value:'Netbook',text:'Netbook'},
+          {value:'All-in-one',text:'All-in-one'},{value:'Other',text:'Other'}],item.type||'Laptop')+
+          formField('cpu','CPU / Processor',item.cpu,{placeholder:'e.g. Ryzen 7 PRO 4750U'})+`</div>`+
+        `<div class="form-row">`+selectField('osFamily','Operating system type',[
+          {value:'',text:'Select OS type (optional)'},
+          {value:'linux',text:'🐧 Linux'},
+          {value:'windows',text:'🪟 Windows'},
+          {value:'macos',text:'🍎 macOS'},
+          {value:'independent',text:'🧩 Independent OS (Haiku, KolibriOS, BSD…)'},
+          {value:'other',text:'💿 Other / mixed OS'}],item.osFamily||'')+
+          formField('osName','Installed OS / version',item.osName,{placeholder:'e.g. Fedora 43, Windows 11, KolibriOS',max:140})+`</div>`+
+        `<div class="form-row">`+formField('ram','RAM',item.ram,{placeholder:'e.g. 16 GB DDR4'})+formField('storage','Storage',item.storage,{placeholder:'e.g. 512 GB NVMe SSD'})+`</div>`+
+        `<div class="form-row">`+formField('gpu','Graphics / GPU',item.gpu,{placeholder:'e.g. AMD Radeon Vega 7'})+formField('display','Display',item.display,{placeholder:'e.g. 14-inch 1920×1080'})+`</div>`+
+        formField('specs','Other / legacy specs',item.specs,{placeholder:'Other hardware details (or notes from older entries)',max:500})+
+        formField('notes','Notes',item.notes,{textarea:true,max:2000,placeholder:'Repairs, Linux compatibility, experiments…'})+buttons;
+    }else{
+      el('formFields').innerHTML=distroNameField(item.name)+
+        `<div class="form-row">`+formField('version','Version (optional)',item.version,{placeholder:'e.g. 43',max:35})+formField('desktop','Desktop / shell',item.desktop,{placeholder:'e.g. KDE, GNOME, Hyprland',max:100})+`</div>`+
+        `<div class="form-row">`+selectField('status','Status',Object.entries(label).map(([value,text])=>({value,text})),item.status||defaultStatus||'wishlist')+
+        selectField('machineId','Computer',[{value:'',text:'Not assigned'},...sortedMachines().map(m=>({value:m.id,text:m.name}))],item.machineId||'')+`</div>`+
+        formField('notes','Notes',item.notes,{textarea:true,max:2000,placeholder:'Why test it? How did it run?'})+buttons;
+    }
+    el('editorPanel').classList.remove('hidden');
+    el('f-name').focus();
+    el('editorPanel').scrollIntoView({block:'start',behavior:'smooth'});
+  }
+  function closeEditor(){editing=null;el('editorPanel').classList.add('hidden');el('formFields').innerHTML='';}
+  let editorSuggestionIndex=-1;
+  function drawEditorSuggestions(){
+    const inp=el('f-name'),list=el('editorSuggestions');if(!inp||!list)return;
+    const q=inp.value.trim();const matches=matchCatalog(q,10);editorSuggestionIndex=-1;
+    list.hidden=!q||!matches.length;
+    inp.setAttribute('aria-expanded',String(!list.hidden));
+    list.innerHTML=matches.map((d,i)=>`<button type="button" role="option" id="editor-suggestion-${i}" data-editor-suggestion="${esc(d.name)}" aria-selected="false"><strong>${esc(d.name)}</strong><small>${esc(d.category)}</small></button>`).join('');
+  }
+  function closeEditorSuggestions(){const list=el('editorSuggestions'),inp=el('f-name');if(list)list.hidden=true;if(inp)inp.setAttribute('aria-expanded','false');editorSuggestionIndex=-1;}
+  function selectEditorSuggestion(name){const inp=el('f-name');if(!inp)return;inp.value=name;closeEditorSuggestions();inp.focus();}
+  // Test queue: direct click to add; suggestions are buttons that fill the input.
+  el('content').addEventListener('input',async e=>{
+    if(e.target.id==='wishlistName')drawSuggestions();
+    if(e.target.id==='catalogSearch'){catalogQuery=e.target.value;renderCatalogResults();}
+  });
+  el('content').addEventListener('keydown',e=>{
+    if(e.target.id!=='wishlistName')return;
+    const list=el('wishlistSuggestions'),opts=[...(list?.querySelectorAll('[data-suggestion]')||[])];
+    if(e.key==='ArrowDown'&&opts.length){e.preventDefault();suggestionIndex=(suggestionIndex+1)%opts.length;}
+    else if(e.key==='ArrowUp'&&opts.length){e.preventDefault();suggestionIndex=(suggestionIndex-1+opts.length)%opts.length;}
+    else if(e.key==='Escape'){closeSuggestions();return;}
+    else if(e.key==='Enter'){
+      e.preventDefault();
+      if(list&&!list.hidden&&suggestionIndex>=0&&opts[suggestionIndex])selectSuggestion(opts[suggestionIndex].dataset.suggestion);
+      else addWishlist(e.target.value);
+      return;
+    }else return;
+    opts.forEach((o,i)=>o.setAttribute('aria-selected',String(i===suggestionIndex)));
+    e.target.setAttribute('aria-activedescendant',opts[suggestionIndex].id);
+    opts[suggestionIndex].scrollIntoView({block:'nearest'});
+  });
+  el('content').addEventListener('click',e=>{
+    const choice=e.target.closest('[data-suggestion]');if(choice){selectSuggestion(choice.dataset.suggestion);return;}
+  });
+  el('editForm').addEventListener('input',e=>{if(editing?.type==='distro'&&e.target.id==='f-name')drawEditorSuggestions()});
+  el('editForm').addEventListener('click',e=>{const choice=e.target.closest('[data-editor-suggestion]');if(choice)selectEditorSuggestion(choice.dataset.editorSuggestion)});
+  el('editForm').addEventListener('keydown',e=>{
+    if(editing?.type!=='distro'||e.target.id!=='f-name')return;
+    const list=el('editorSuggestions'),opts=[...(list?.querySelectorAll('[data-editor-suggestion]')||[])];
+    if(e.key==='Escape'){closeEditorSuggestions();return}
+    if(!opts.length||list.hidden)return;
+    if(e.key==='ArrowDown'){e.preventDefault();editorSuggestionIndex=(editorSuggestionIndex+1)%opts.length}
+    else if(e.key==='ArrowUp'){e.preventDefault();editorSuggestionIndex=(editorSuggestionIndex+opts.length-1)%opts.length}
+    else if(e.key==='Enter'&&editorSuggestionIndex>=0){e.preventDefault();selectEditorSuggestion(opts[editorSuggestionIndex].dataset.editorSuggestion);return}
+    else return;
+    opts.forEach((o,i)=>o.setAttribute('aria-selected',String(i===editorSuggestionIndex)));
+    opts[editorSuggestionIndex]?.scrollIntoView({block:'nearest'});
+  });
+  // Save explicitly when the user clicks Save. No native form submission required.
+  function editorError(message){
+    const box=el('editorError');
+    if(box){box.textContent=message;box.classList.remove('hidden')}
+    toast(message);
+  }
+  async function saveEditor(){
+    if(!editing){toast('Open an editor first');return}
+    try{
+      const type=editing.type,id=editing.id;
+      const field=n=>String(el('f-'+n)?.value??'').trim();
+      const name=field('name');
+      if(!name){editorError('Enter a computer or distro name first.');el('f-name')?.focus();return}
+      const existing=type==='machine'?data.machines.find(x=>x.id===id):data.distros.find(x=>x.id===id);
+      const obj={id:id||uuid(),name,favorite:Boolean(existing?.favorite)};
+      if(type==='machine'){
+        Object.assign(obj,{
+          type:field('type')||'Laptop',osFamily:field('osFamily'),osName:field('osName'),
+          cpu:field('cpu'),ram:field('ram'),storage:field('storage'),
+          gpu:field('gpu'),display:field('display'),specs:field('specs'),notes:field('notes')
+        });
+        const index=data.machines.findIndex(x=>x.id===id);
+        if(index===-1)data.machines.push(obj);else data.machines.splice(index,1,obj);
+      }else{
+        Object.assign(obj,{
+          version:field('version'),desktop:field('desktop'),status:field('status')||'wishlist',
+          machineId:field('machineId'),notes:field('notes')
+        });
+        const index=data.distros.findIndex(x=>x.id===id);
+        if(index===-1)data.distros.push(obj);else data.distros.splice(index,1,obj);
+      }
+      const stored=await save();
+      if(!stored){editorError('Disk save failed. This edit is NOT safely saved. Use the launcher, then try Save again.');return}
+      // Always clear filters so the newly added item cannot be hidden by an old search.
+      query='';statusFilter='all';machineFilter='all';
+      closeEditor();
+      page=type==='machine'?'machines':'distros';
+      render();
+      const message=(id?'Updated ':'Added ')+name;
+      const banner=document.createElement('div');
+      banner.className='save-feedback'+(stored?'':' error');
+      banner.setAttribute('role','status');
+      banner.append(document.createTextNode(message+' — confirmed on disk ✓'));
+      if(!stored){
+        const backup=document.createElement('button');
+        backup.type='button';backup.className='btn small primary';backup.textContent='Export backup';backup.dataset.action='export';
+        banner.appendChild(backup);
+      }
+      el('content').prepend(banner);
+      const card=[...el('content').querySelectorAll('[data-card-id]')].find(c=>c.dataset.cardId===obj.id);
+      card?.classList.add('just-added');
+      banner.scrollIntoView({block:'start',behavior:'instant'});
+      toast(stored?message+' ✓':message+' — needs backup');
+    }catch(err){
+      console.error('DistroVault save failed:',err);
+      editorError('Could not save: '+(err?.message||'unknown error'));
+    }
+  }
+  el('editForm').addEventListener('submit',e=>{e.preventDefault();saveEditor()});
+  document.addEventListener('click',async e=>{const nav=e.target.closest('[data-page]');if(nav){closeEditor();page=nav.dataset.page;query='';statusFilter='all';machineFilter='all';render();return}const btn=e.target.closest('[data-action]');if(!btn)return;const a=btn.dataset.action,id=btn.dataset.id;
+    if(a.startsWith('page-')){closeEditor();page=a.slice(5);render();window.scrollTo(0,0);return}
+    if(a==='theme-preset'){const preset=themePresets[btn.dataset.themeId];if(preset){data.theme=normalizedTheme(preset);applyTheme(data.theme);const stored=await save();renderSettings();themeStatus(stored?'Theme saved to disk ✓':'Disk save failed. Export a backup before closing.');}return}
+    if(a==='theme-reset'){data.theme={...themeDefault};applyTheme(data.theme);const stored=await save();renderSettings();themeStatus(stored?'Default colors saved to disk ✓':'Disk save failed. Export a backup before closing.');return}
+    if(a==='toggle-favorite'){
+      const item=btn.dataset.favKind==='machine'?data.machines.find(m=>m.id===id):data.distros.find(d=>d.id===id);
+      if(!item)return;
+      item.favorite=!Boolean(item.favorite);
+      const favorite=item.favorite,stored=await save();render();toast(stored?(favorite?'Added to':'Removed from')+' favorites ✓':'Disk save failed. Export a backup.');return;
+    }
+    if(a==='toggle-catalog-favorite'){
+      const name=btn.dataset.name;if(!name)return;
+      const present=data.favoriteCatalog.some(n=>normalize(n)===normalize(name));
+      data.favoriteCatalog=present?data.favoriteCatalog.filter(n=>normalize(n)!==normalize(name)):[...data.favoriteCatalog,name];
+      const stored=await save();render();toast(stored?(present?'Removed bookmark ✓':'Bookmarked '+name+' ✓'):'Disk save failed. Export a backup.');return;
+    }
+    if(a==='wishlist-quick-add'){addWishlist(el('wishlistName')?.value);return}
+    if(a==='catalog-add'){addWishlist(btn.dataset.name);return}
+    if(a==='save-editor'){saveEditor();return}
+    if(a==='add-wishlist'){openEditor('distro',null,'wishlist');return}
+    if(a==='add-machine'||a==='add-distro'){openEditor(a.endsWith('machine')?'machine':'distro');return}
+    if(a==='edit-machine'||a==='edit-distro'){openEditor(a.endsWith('machine')?'machine':'distro',id);return}
+    if(a==='close'){closeEditor();return}
+    if(a==='delete-machine'){const m=machine(id);if(m&&confirm(`Delete ${m.name}? Its distros will remain in your library but become unassigned.`)){data.machines=data.machines.filter(x=>x.id!==id);data.distros.forEach(d=>{if(d.machineId===id)d.machineId=''});const stored=await save();render();toast(stored?'Computer removed — saved ✓':'Disk save failed; export a backup')}return}
+    if(a==='delete-distro'){const d=data.distros.find(x=>x.id===id);if(d&&confirm(`Delete ${d.name} from your library?`)){data.distros=data.distros.filter(x=>x.id!==id);const stored=await save();render();toast(stored?'Distro removed — saved ✓':'Disk save failed; export a backup')}return}
+    if(a==='status-testing'||a==='status-tried'){const d=data.distros.find(x=>x.id===id);if(d){d.status=a==='status-testing'?'testing':'tried';const stored=await save();render();toast(stored?d.name+' → '+label[d.status]+' ✓':'Disk save failed; export a backup')}return}
+    if(a==='export'){const blob=new Blob([JSON.stringify({app:'DistroVault',version:1,exportedAt:new Date().toISOString(),...data},null,2)],{type:'application/json'}),link=document.createElement('a'),url=URL.createObjectURL(blob);link.href=url;link.download='DistroVault-backup-'+new Date().toISOString().slice(0,10)+'.json';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('Backup exported');return}
+    if(a==='import'){el('importFile').click();return}
+    if(a==='reset'){if(confirm('Replace all of your saved data with the starter entries? This cannot be undone unless you exported a backup.')){data=clone(seed);data.theme={...themeDefault};applyTheme(data.theme);query='';statusFilter='all';machineFilter='all';const stored=await save();render();toast(stored?'Starter data restored ✓':'Disk save failed; export a backup')}return}
+  });
+  document.addEventListener('pointerdown',e=>{if(!e.target.closest('.combo')){closeSuggestions();closeEditorSuggestions();}});
+  el('importFile').addEventListener('change',async e=>{const file=e.target.files?.[0];if(!file)return;try{const restored=JSON.parse(await file.text());if(!valid(restored))throw Error('This is not a valid DistroVault backup.');if(!confirm(`Import ${restored.machines.length} computers and ${restored.distros.length} distro entries? This replaces the current library.`))return;data={machines:restored.machines,distros:restored.distros,favoriteCatalog:cleanFavoriteCatalog(restored.favoriteCatalog),theme:normalizedTheme(restored.theme)};applyTheme(data.theme);const stored=await save();render();toast(stored?'Backup imported and saved to disk ✓':'Backup imported into memory only — disk save failed')}catch(err){alert('Could not import file: '+err.message)}finally{e.target.value=''}});
+  el('content').addEventListener('input',async e=>{
+    if(e.target.matches('[data-theme-color]')){
+      const key=e.target.dataset.themeColor,value=e.target.value;
+      if(themeKeys.includes(key)&&/^#[a-fA-F0-9]{6}$/.test(value)){
+        data.theme[key]=value.toLowerCase();applyTheme(data.theme);const stored=await save();
+        const code=el('content').querySelector('[data-theme-value='+key+']');if(code)code.textContent=value.toUpperCase();
+        const active=selectedThemeId();el('content').querySelectorAll('.theme-preset').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.themeId===active)));
+        themeStatus(stored?'Custom colors saved to disk ✓':'Disk save failed. Export a backup before closing.');
+      }
+      return;
+    }
+    if(e.target.matches('[data-filter="query"]')){
+      query=e.target.value;
+      if(page==='machines')refreshMachineResults();
+      if(page==='distros')refreshDistroResults();
+      if(page==='favorites')refreshFavoriteResults();
+    }
+  });
+  el('content').addEventListener('change',e=>{
+    if(e.target.dataset.filter==='status'){statusFilter=e.target.value;refreshDistroResults()}
+    if(e.target.dataset.filter==='machine'){machineFilter=e.target.value;refreshDistroResults()}
+  });
+  render();
+})();
+</script>
+</body>
+</html>

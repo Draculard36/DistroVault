@@ -1,0 +1,14 @@
+{
+  "name": "distrovault-desktop",
+  "version": "0.1.2",
+  "private": true,
+  "description": "DistroVault Windows and Linux desktop app for tracking computers and OS experiments",
+  "scripts": {
+    "desktop:dev": "tauri dev",
+    "desktop:windows": "tauri build --bundles nsis",
+    "desktop:linux": "tauri build --bundles deb,appimage"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.0.0"
+  }
+}

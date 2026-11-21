@@ -1,0 +1,13 @@
+node_modules/
+src-tauri/target/
+.DS_Store
+*.tmp
+DistroDeck-data.json
+DistroDeck-data.previous.json
+*.json.bak
+
+DistroVault-data.json
+DistroVault-data.previous.json
+DistroVault-backup-*.json
+DistroDeck-backup-*.json
+src-tauri/gen/schemas/

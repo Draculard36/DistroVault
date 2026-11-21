@@ -1,0 +1,10 @@
+{
+  "identifier": "default",
+  "description": "Minimal access for the local DistroDeck interface",
+  "windows": [
+    "main"
+  ],
+  "permissions": [
+    "core:default"
+  ]
+}

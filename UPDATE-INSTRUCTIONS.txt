@@ -1,0 +1,21 @@
+DistroVault Desktop v0.1.2 — Overview wording update
+
+This update only replaces the personal-sounding paragraph in the Overview
+"Make this your own" card with:
+  DistroVault — Your machines. Your distros. Your vault.
+All 3 numbered instructions remain intact.
+
+HOW TO INSTALL ON WINDOWS
+1. Export a JSON backup from your current DistroVault first.
+2. Close DistroVault.
+3. Extract this ZIP into your existing DistroVault-Desktop project folder
+   (the folder containing package.json), merging and replacing matching files.
+   Do not delete any project files or node_modules.
+4. Open Command Prompt in that folder and run:
+      npm run desktop:windows
+5. Install the new setup EXE from:
+      src-tauri\target\release\bundle\nsis
+6. If prompted to delete application data, choose NO.
+
+Your stored machines, distributions, favorites, and colors are not changed
+by this update. The Tauri application identifier remains the same.

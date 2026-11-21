@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+<defs>
+  <linearGradient id="plate" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#1f2850"/><stop offset="1" stop-color="#10152d"/></linearGradient>
+  <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d1d8ef"/><stop offset=".45" stop-color="#6e7a9d"/><stop offset="1" stop-color="#ccd1e7"/></linearGradient>
+  <linearGradient id="purple" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8ed5ff"/><stop offset=".46" stop-color="#ab83ff"/><stop offset="1" stop-color="#dc81fc"/></linearGradient>
+  <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="11"/></filter>
+</defs>
+<rect x="12" y="12" width="488" height="488" rx="116" fill="#0b1020"/>
+<rect x="18" y="18" width="476" height="476" rx="111" fill="url(#plate)" stroke="#343b64" stroke-width="5"/>
+<circle cx="265" cy="257" r="179" fill="none" stroke="#945bfa" stroke-width="16" opacity=".45" filter="url(#glow)"/>
+<circle cx="265" cy="257" r="181" fill="url(#ring)" stroke="#4e5579" stroke-width="6"/>
+<circle cx="265" cy="257" r="153" fill="#171b37" stroke="#4b4d81" stroke-width="10"/>
+<circle cx="265" cy="257" r="140" fill="#141932" stroke="url(#purple)" stroke-width="9"/>
+<!-- Vault hinge -->
+<rect x="69" y="204" width="31" height="106" rx="13" fill="#7780a9" stroke="#d5daeb" stroke-width="6"/>
+<rect x="90" y="235" width="35" height="46" rx="11" fill="#313d66" stroke="#8b9ac8" stroke-width="5"/>
+<!-- Rivets -->
+<g fill="#e0e4fa" stroke="#555d83" stroke-width="5">
+<circle cx="265" cy="81" r="10"/><circle cx="400" cy="147" r="10"/>
+<circle cx="441" cy="261" r="10"/><circle cx="392" cy="380" r="10"/>
+<circle cx="264" cy="434" r="10"/><circle cx="142" cy="375" r="10"/>
+<circle cx="139" cy="142" r="10"/>
+</g>
+<!-- Tux-like generic penguin illustration -->
+<path d="M256 142 C213 142 190 184 191 244 C176 265 176 315 185 342 C198 374 225 389 265 391 C303 392 338 373 347 342 C358 311 351 265 335 244 C336 184 307 142 256 142Z" fill="#050815" stroke="#323656" stroke-width="5"/>
+<path d="M259 217 C223 218 207 248 208 301 C209 338 228 362 264 363 C302 363 320 336 320 302 C320 249 299 218 259 217Z" fill="#f8f6ff"/>
+<!-- face and eyes -->
+<ellipse cx="238" cy="204" rx="17" ry="23" fill="#fafcff"/><ellipse cx="281" cy="204" rx="17" ry="23" fill="#fafcff"/>
+<ellipse cx="242" cy="207" rx="6" ry="10" fill="#141627"/><ellipse cx="278" cy="207" rx="6" ry="10" fill="#141627"/>
+<path d="M241 230 Q260 219 282 230 L260 251Z" fill="#ffca5c" stroke="#e7a338" stroke-width="3"/>
+<!-- flippers -->
+<path d="M195 252 C181 277 184 321 205 336 L220 324 C205 300 207 277 213 263Z" fill="#050815"/>
+<path d="M327 257 C343 282 341 318 321 339 L307 325 C322 303 321 277 309 258Z" fill="#050815"/>
+<!-- feet -->
+<path d="M239 372 Q205 362 191 381 Q189 396 222 398 Q243 399 256 391Z" fill="#ffc451"/>
+<path d="M274 389 Q295 360 320 374 Q341 391 315 399 L279 398Z" fill="#ffc451"/>
+</svg>
