@@ -18,6 +18,12 @@ DistroVault is a personal workspace for people who maintain more than one comput
 
 Keep your hardware collection, installed operating systems, past experiments, favorites, and future test plans together in one place—without creating an account or sending your collection to a cloud service.
 
+### Made for fun, shared with everyone
+
+DistroVault started as a **personal hobby project**. I enjoy collecting computers and experimenting with operating systems, and I wanted a simple way to organize the machines I own, the distros I've tried, and the ones I want to test next.
+
+I built it for fun and decided to share it in case other Linux enthusiasts and distro-hoppers find it useful, too. There is no company or commercial service behind DistroVault just a personal project that grew into a desktop app.
+
 ## Features
 
 - **Computer inventory** — Record desktops and laptops, including CPU, RAM, graphics, storage, display, and notes.
@@ -110,9 +116,16 @@ package.json     Development and build commands
 README.md        Project documentation
 ```
 
-## Feedback and contributions
+## Hobby project and maintenance
 
-Have an idea, found a bug, or want to improve the distro catalogue? GitHub Issues are a good place to discuss it when access to the repository is available.
+DistroVault is shared **as-is**, with no guaranteed updates, fixes, support, or release schedule. I made it because it was fun to build, not because I plan to maintain a large software project.
+
+You're welcome to use it, explore the source, and make your own improvements. Issues and suggestions may be shared on GitHub, but responses and ongoing maintenance aren't promised. Feel free to fork the project if you'd like to take it further.
 
 ---
 
+<div align="center">
+  <strong>DistroVault — Your machines. Your distros. Your vault.</strong>
+
+  *Your collection. Your data. Your control.*
+</div>
