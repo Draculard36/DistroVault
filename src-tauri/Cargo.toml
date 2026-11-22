@@ -4,6 +4,7 @@ version = "0.1.2"
 description = "DistroVault Desktop"
 authors = ["DistroVault contributors"]
 edition = "2021"
+license = "GPL-3.0-only"
 
 [lib]
 name = "distrovault_lib"
