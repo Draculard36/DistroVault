@@ -1,6 +1,6 @@
 {
   "identifier": "default",
-  "description": "Minimal access for the local DistroDeck interface",
+  "description": "Minimal access for the local DistroVault interface",
   "windows": [
     "main"
   ],
